@@ -1,13 +1,22 @@
 package com.securityDevelopment.user.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "users")
 public class UserModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID id;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -24,47 +33,16 @@ public class UserModel {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
+    public UserModel(String username, String password, String email, String name, String lastName) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @PrePersist
+    public void onCreate() {
+        setId(UUID.randomUUID());
     }
 }
