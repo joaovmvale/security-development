@@ -4,7 +4,6 @@ import com.securityDevelopment.equipment.model.EquipmentModel;
 import com.securityDevelopment.equipment.model.dto.EquipmentDTO;
 import com.securityDevelopment.equipment.model.dto.EquipmentResponseDTO;
 import com.securityDevelopment.equipment.service.EquipmentService;
-import com.securityDevelopment.rabbitMQ.QueueSender;
 import com.securityDevelopment.utils.exception.CustomException;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.amqp.core.AmqpTemplate;
