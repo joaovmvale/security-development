@@ -7,6 +7,7 @@ import com.securityDevelopment.user.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,19 +15,24 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/user")
 @SecurityRequirement(name = "Bearer Authentication")
 public class UserController {
     private final UserService userService;
+    private final PasswordEncoder encoder;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordEncoder encoder) {
         this.userService = userService;
+        this.encoder = encoder;
     }
 
     @PostMapping
     public ResponseEntity<UserResponseDTO> save(@RequestBody UserDTO dto) {
-        UserModel user = userService.save(dto.transformToUserModel());
+        UserModel userModel = dto.transformToUserModel();
+        userModel.setPassword(encoder.encode(userModel.getPassword()));
+
+        UserModel user = userService.save(userModel);
         UserResponseDTO response = UserResponseDTO.transformToUserResponseDTO(user);
 
         return ResponseEntity.ok(response);
