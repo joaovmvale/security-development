@@ -19,6 +19,7 @@ public class ExceptionHandlers {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
+
         return errors;
     }
 }

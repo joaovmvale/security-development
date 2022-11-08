@@ -1,5 +1,6 @@
 package com.securityDevelopment.user.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class UserModel {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "Field password is mandatory")
     @Column(name = "password", nullable = false)
     private String password;

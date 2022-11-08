@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/user")
-@SecurityRequirement(name = "Bearer Authentication")
 public class UserController {
     private final UserService userService;
     private final PasswordEncoder encoder;
