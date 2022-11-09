@@ -5,6 +5,9 @@ import com.securityDevelopment.equipment.model.dto.EquipmentDTO;
 import com.securityDevelopment.equipment.model.dto.EquipmentResponseDTO;
 import com.securityDevelopment.equipment.service.EquipmentService;
 import com.securityDevelopment.utils.exception.CustomException;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "jwt", scheme = "bearer")
+@SecurityRequirement(name = "Bearer")
 @RestController
 @RequestMapping("/api/equipment")
 public class EquipmentController {
