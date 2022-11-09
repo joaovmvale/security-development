@@ -3,6 +3,7 @@ package com.securityDevelopment;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -13,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SecurityScheme(name = "Bearer", type = SecuritySchemeType.HTTP, bearerFormat = "jwt", scheme = "bearer")
 @SecurityRequirement(name = "Bearer")
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@EnableRabbit
+@SpringBootApplication
 public class SecurityDevelopmentApplication {
     public static void main(String[] args) {
         SpringApplication.run(SecurityDevelopmentApplication.class, args);
@@ -21,6 +24,9 @@ public class SecurityDevelopmentApplication {
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
+
+    public static void main(String[] args) {
+        SpringApplication.run(SecurityDevelopmentApplication.class, args);
     }
 
 }
